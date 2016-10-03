@@ -2,7 +2,7 @@ package com.tarrega.clashroyale.domain;
 
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -19,11 +19,14 @@ public class Deck {
 	@Setter long buildingCnt;
 	@Setter long troopCnt;
 	double costAverage;
-	List<Card> cards;
+	Set<Card> cards;
 	@Setter boolean airTarget;
 	@Setter boolean areaDamage;
 
-	void setCards(List<Card> cards) {
+	void setCards(Set<Card> cards) {
+		if(cards.isEmpty()) {
+			return;
+		}
 		this.cards = cards;
 		spellCnt = cards.stream().filter(card -> card.getType() == CardType.SPELL).count();
 		buildingCnt = cards.stream().filter(card -> card.getType() == CardType.BUILDING).count();

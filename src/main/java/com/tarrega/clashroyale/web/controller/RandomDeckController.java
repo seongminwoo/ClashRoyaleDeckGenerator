@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by vayne on 2016. 10. 2..
@@ -22,7 +22,7 @@ public class RandomDeckController {
 
 	@RequestMapping
 	public Deck randomDeck(@RequestParam(value = "type", required = true, defaultValue = "BALANCED") RandomType randomType
-		, @RequestParam(value = "cards", required = false) List<String> preservedCardNames) {
+		, @RequestParam(value = "cards", required = false) Set<String> preservedCardNames) {
 		if(preservedCardNames != null) {
 			return deckGenerator.generateWithPreservedCards(preservedCardNames, randomType);
 		} else {

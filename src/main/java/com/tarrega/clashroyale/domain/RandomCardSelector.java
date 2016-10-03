@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
@@ -39,15 +37,18 @@ public class RandomCardSelector implements CardSelector {
 	private Random random = new SecureRandom();
 
 	@Override
-	public List<Card> cards(List<Card> cards, Deck deck) {
+	public Set<Card> cards(Set<Card> cards, Deck deck) {
 		deck.setCards(cards);
 		switch (deck.randomType) {
 			case BALANCED:
-				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> {
+				while(cards.size() < DECK_CARD_NUMBER) {
 					Card selected = selectBalancedRandomCard(cards, deck);
 					cards.add(selected);
+					if (selected.getPartnerCard() != null) {
+						cards.add(cardService.getCard(selected.getPartnerCard()));
+					}
 					deck.setCards(cards);
-				});
+				}
 				break;
 			case SPELL: // all spell
 				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> cards.add(cardService.getCard(cards, spell)));
@@ -66,24 +67,24 @@ public class RandomCardSelector implements CardSelector {
 		return cards;	}
 
 	@Override
-	public List<Card> cards(Deck deck) {
-		List<Card> selectedCards = new ArrayList<>();
+	public Set<Card> cards(Deck deck) {
+		Set<Card> selectedCards = new HashSet<>();
 		return cards(selectedCards, deck);
 	}
 
-	private Card selectConceptRandomCard(List<Card> selectedCards, Deck deck) {
+	private Card selectConceptRandomCard(Set<Card> selectedCards, Deck deck) {
 		Predicate<Card> condition = makeConceptSelectCondition(selectedCards, deck);
 		Card card = cardService.getCard(selectedCards, condition);
 		return card;
 	}
 
-	private Card selectBalancedRandomCard(List<Card> cards, Deck deck) {
+	private Card selectBalancedRandomCard(Set<Card> cards, Deck deck) {
 		Predicate<Card> condition = makeBalancedSelectCondition(cards, deck);
 		Card card = cardService.getCard(cards, condition);
 		return card;
 	}
 
-	private Predicate<Card> makeConceptSelectCondition(List<Card> cards, Deck deck) {
+	private Predicate<Card> makeConceptSelectCondition(Set<Card> cards, Deck deck) {
 		// 0. Cost Average < 4.0
 		// 1. Spell Card 2 or Spell Card 1, Target AIR_GROUND 1
 		// 2. Concept!!
@@ -157,7 +158,7 @@ public class RandomCardSelector implements CardSelector {
 		return random.nextInt(100) >= 100 - prob;
 	}
 
-	private Predicate<Card> makeBalancedSelectCondition(List<Card> cards, Deck deck) {
+	private Predicate<Card> makeBalancedSelectCondition(Set<Card> cards, Deck deck) {
 		// 0. Cost Average < 4.0
 		// 1. Spell Card 2 or Spell Card 1, Target AIR_GROUND 1
 		// 2. Building Card 1 or Attack Low Card 1
@@ -203,6 +204,6 @@ public class RandomCardSelector implements CardSelector {
 	}
 
 	private boolean isTwoSpellOrOneSpellOneAirTargetTroop(Deck deck) {
-		return deck.getSpellCnt() == 2 || (deck.getSpellCnt() == 1 && deck.isAirTarget());
+		return deck.getSpellCnt() >= 2 || (deck.getSpellCnt() == 1 && deck.isAirTarget());
 	}
 }

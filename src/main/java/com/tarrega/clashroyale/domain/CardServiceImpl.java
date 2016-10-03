@@ -18,7 +18,7 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public Card getCard(List<Card> selectedCards, Predicate<Card> predicate) {
+	public Card getCard(Set<Card> selectedCards, Predicate<Card> predicate) {
 		Set<Card> targetCards = new HashSet<>(getAllCards());
 		targetCards.removeAll(selectedCards);
 		List<Card> cards = new ArrayList<>(targetCards);

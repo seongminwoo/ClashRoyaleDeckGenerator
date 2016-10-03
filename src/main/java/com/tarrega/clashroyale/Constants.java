@@ -35,7 +35,7 @@ public class Constants {
 
 
 		// RARE
-		cards.add(Card.builder().name("hog rider").nameKr("호그라이더").rarity(Rarity.RARE).target(Target.BUILDINGS).attackGrade(AttackGrade.HIGH)
+		cards.add(Card.builder().name("hog rider").nameKr("호그라이더").rarity(Rarity.RARE).target(Target.BUILDINGS).attackGrade(AttackGrade.HIGH).partnerCard("goblins")
 			.cost(4).build());
 		cards.add(Card.builder().name("giant").nameKr("자이언트").rarity(Rarity.RARE).target(Target.BUILDINGS).attackGrade(AttackGrade.HIGH)
 			.cost(5).build());
@@ -61,13 +61,13 @@ public class Constants {
 			.cost(5).build());
 		cards.add(Card.builder().name("Giant Skeleton").nameKr("자이언트 해골").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(6).build());
-		cards.add(Card.builder().name("Balloon").nameKr("해골 비행선").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
+		cards.add(Card.builder().name("Balloon").nameKr("해골 비행선").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH).partnerCard("giant")
 			.cost(5).build());
 		cards.add(Card.builder().name("P.E.K.K.A").nameKr("P.E.K.K.A").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(7).build());
 		cards.add(Card.builder().name("Golem").nameKr("골렘").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(8).build());
-		cards.add(Card.builder().name("Dark Prince)").nameKr("다크프린스").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("Dark Prince").nameKr("다크 프린스").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
 			.cost(4).build());
 		cards.add(Card.builder().name("Guards").nameKr("가드").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(3).build());
