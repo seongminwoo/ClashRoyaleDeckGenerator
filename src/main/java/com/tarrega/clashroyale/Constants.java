@@ -123,13 +123,13 @@ public class Constants {
 
 		cards.add(Card.builder().name("elixir collector").nameKr("정제소").rarity(Rarity.RARE).target(Target.NONE).attackGrade(AttackGrade.ZERO)
 			.cost(5).type(CardType.BUILDING).build());
-		cards.add(Card.builder().name("goblin hut").nameKr("고블린 오두막").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("goblin hut").nameKr("고블린 오두막").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).partnerCard("barbarian hut")
 			.cost(5).type(CardType.BUILDING).build());
 		cards.add(Card.builder().name("tombstone").nameKr("해골 무덤").rarity(Rarity.RARE).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(3).type(CardType.BUILDING).build());
 		cards.add(Card.builder().name("bomb tower").nameKr("폭탄 타워").rarity(Rarity.RARE).target(Target.GROUND).attackGrade(AttackGrade.LOW).areaDamage(true)
 			.cost(5).type(CardType.BUILDING).build());
-		cards.add(Card.builder().name("barbarian hut").nameKr("바바리안 오두막").rarity(Rarity.RARE).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("barbarian hut").nameKr("바바리안 오두막").rarity(Rarity.RARE).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM).partnerCard("goblin hut")
 			.cost(7).type(CardType.BUILDING).build());
 		cards.add(Card.builder().name("inferno tower").nameKr("인페르노 타워").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.LOW)
 			.cost(5).type(CardType.BUILDING).build());

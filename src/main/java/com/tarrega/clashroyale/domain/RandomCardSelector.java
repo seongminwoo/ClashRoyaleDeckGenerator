@@ -68,7 +68,7 @@ public class RandomCardSelector implements CardSelector {
 
 	@Override
 	public Set<Card> cards(Deck deck) {
-		Set<Card> selectedCards = new HashSet<>();
+		Set<Card> selectedCards = new LinkedHashSet<>();
 		return cards(selectedCards, deck);
 	}
 
