@@ -1,10 +1,11 @@
 package com.tarrega.clashroyale.domain;
 
+import com.tarrega.clashroyale.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.security.SecureRandom;
-import java.util.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
@@ -17,6 +18,7 @@ public class RandomCardSelector implements CardSelector {
 	public static final double COST_AVERAGE_LIMIT = 4.0;
 	public static final int LOW_COST = 3;
 	public static final int LOW_COST_SPELL = 4;
+	public static final int LOW_COST_HIGH_ATTACK = 5;
 
 	final Predicate<Card> spell = predicateCard -> predicateCard.getType() == CardType.SPELL;
 	final Predicate<Card> building = predicateCard -> predicateCard.getType() == CardType.BUILDING;
@@ -30,11 +32,11 @@ public class RandomCardSelector implements CardSelector {
 	final Predicate<Card> airTarget = predicateCard -> predicateCard.target == Target.AIR_GROUND;
 	final Predicate<Card> lowCost = predicateCard -> predicateCard.getCost() <= LOW_COST;
 	final Predicate<Card> lowCostForSpell = predicateCard -> predicateCard.getCost() <= LOW_COST_SPELL;
+	final Predicate<Card> lowCostForHighAttack = predicateCard -> predicateCard.getCost() <= LOW_COST_HIGH_ATTACK;
 	final Predicate<Card> rarityEpic = predicateCard -> predicateCard.rarity == Rarity.EPIC;
 
 	@Autowired
 	private CardService cardService;
-	private Random random = new SecureRandom();
 
 	@Override
 	public Set<Card> cards(Set<Card> cards, Deck deck) {
@@ -50,11 +52,18 @@ public class RandomCardSelector implements CardSelector {
 					deck.setCards(cards);
 				}
 				break;
+			case RANKERCARD:
+				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> {
+					Card selected = selectBalancedRandomCardFromRankerCards(cards, deck);
+					cards.add(selected);
+					deck.setCards(cards);
+				});
+				break;
 			case SPELL: // all spell
-				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> cards.add(cardService.getCard(cards, spell)));
+				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> cards.add(cardService.getCard(cards, spell, false)));
 				break;
 			case BUILDING: // all building
-				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> cards.add(cardService.getCard(cards, building)));
+				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> cards.add(cardService.getCard(cards, building, false)));
 				break;
 			default:
 				IntStream.range(0, DECK_CARD_NUMBER - cards.size()).forEach(value -> {
@@ -74,13 +83,19 @@ public class RandomCardSelector implements CardSelector {
 
 	private Card selectConceptRandomCard(Set<Card> selectedCards, Deck deck) {
 		Predicate<Card> condition = makeConceptSelectCondition(selectedCards, deck);
-		Card card = cardService.getCard(selectedCards, condition);
+		Card card = cardService.getCard(selectedCards, condition, false);
 		return card;
 	}
 
 	private Card selectBalancedRandomCard(Set<Card> cards, Deck deck) {
 		Predicate<Card> condition = makeBalancedSelectCondition(cards, deck);
-		Card card = cardService.getCard(cards, condition);
+		Card card = cardService.getCard(cards, condition, true);
+		return card;
+	}
+
+	private Card selectBalancedRandomCardFromRankerCards(Set<Card> cards, Deck deck) {
+		Predicate<Card> condition = makeBalancedSelectCondition(cards, deck);
+		Card card = cardService.getCardFromRankerCards(cards, condition);
 		return card;
 	}
 
@@ -93,16 +108,22 @@ public class RandomCardSelector implements CardSelector {
 
 		if(!isTwoSpellOrOneSpellOneAirTargetTroop(deck)) { // spell or air card
 			// spell 카드에 가중치를 부여한다.
-			if (chance(90)) {
+			if (Utils.chance(90)) {
 				condition = spell;
 			} else {
-				condition = spell.or(airTarget);
+				condition = airTarget;
 			}
 
 			if(deck.randomType == RandomType.LOW_COST) {
-				condition.and(lowCostForSpell);
+				condition = condition.and(lowCostForSpell);
+			} else if(deck.randomType == RandomType.DEFENSE) {
+				condition = condition.and(attackHigh.negate());
+			} else if(deck.randomType == RandomType.ATTACK) {
+				condition = condition.and(attackLow.negate());
+			} else if(deck.randomType == RandomType.AREA) {
+				condition = condition.and(areaDamage);
 			}
-		} else { // concept card
+		} else { // troop card
 			switch (deck.randomType) {
 				case MELEE:
 					condition = troop.and(melee);
@@ -117,13 +138,17 @@ public class RandomCardSelector implements CardSelector {
 					condition = troop.and(attackHigh.or(attackMedium));
 					break;
 				case DEFENSE:
-					condition = troop.and(attackLow.or(attackMedium));
+					if(Utils.chance(90)) { // 80%
+						condition = troop.and(attackLow.or(attackMedium));
+					} else {
+						condition = building.and(attackLow);
+					}
 					break;
 				case LOW_COST:
 					if(cards.stream().filter(card -> card.getAttackGrade() == AttackGrade.HIGH).count() < 1) {
-						condition = troop.and(attackHigh);
+						condition = troop.and(attackHigh).and(lowCostForHighAttack);
 					} else {
-						if(chance(90)) { // 90%
+						if(Utils.chance(90)) { // 90%
 							condition = troop.and(lowCost);
 						} else {
 							condition = troop;
@@ -138,24 +163,20 @@ public class RandomCardSelector implements CardSelector {
 					}
 
 				// Epic 카드는 우선순위를 낮춘다
-				if(chance(30)) { // 30%
-					condition.and(rarityEpic);
+				if(Utils.chance(30)) { // 30%
+					condition = condition.and(rarityEpic);
 				} else { // 70%
-					condition.and(rarityEpic.negate());
+					condition = condition.and(rarityEpic.negate());
 				}
 			}
 
 		}
 
 		if(deck.getCostAverage() > COST_AVERAGE_LIMIT) {
-			condition.and(lowCost);
+			condition = condition.and(lowCost);
 		}
 
 		return condition;
-	}
-
-	private boolean chance(int prob) {
-		return random.nextInt(100) >= 100 - prob;
 	}
 
 	private Predicate<Card> makeBalancedSelectCondition(Set<Card> cards, Deck deck) {
@@ -169,10 +190,10 @@ public class RandomCardSelector implements CardSelector {
 
 		if(!isTwoSpellOrOneSpellOneAirTargetTroop(deck)) { // spell or air card
 			// spell 카드에 가중치를 부여한다.
-			if (chance(90)) {
+			if (Utils.chance(90)) {
 				condition = spell;
 			} else {
-				condition = spell.or(airTarget);
+				condition = airTarget;
 			}
 		} else if(deck.getBuildingCnt() < 1) { // building card
 			condition = building;
@@ -185,19 +206,12 @@ public class RandomCardSelector implements CardSelector {
 
 			// if spell or building card have no area damage, select at least one area damage troop card.
 			if(!deck.isAreaDamage()) {
-				condition.and(areaDamage);
-			}
-
-			// Epic 카드는 우선순위를 낮춘다
-			if(chance(30)) { // 30%
-				condition.and(rarityEpic);
-			} else { // 70%
-				condition.and(rarityEpic.negate());
+				condition = condition.and(areaDamage);
 			}
 		}
 
 		if(deck.getCostAverage() > 4.0) {
-			condition.and(lowCost);
+			condition = condition.and(lowCost);
 		}
 
 		return condition;

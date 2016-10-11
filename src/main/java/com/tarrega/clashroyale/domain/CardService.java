@@ -8,7 +8,8 @@ import java.util.function.Predicate;
  */
 public interface CardService {
 	Set<Card> getAllCards();
-	Card getCard(Set<Card> selectedCards, Predicate<Card> predicate);
+	Card getCardFromRankerCards(Set<Card> selectedCards, Predicate<Card> predicate);
+	Card getCard(Set<Card> selectedCards, Predicate<Card> predicate, boolean considerTopRanker);
 	Card getCard(String cardName);
 	boolean isExist(String cardName);
 }

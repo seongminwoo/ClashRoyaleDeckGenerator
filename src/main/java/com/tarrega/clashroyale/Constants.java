@@ -2,18 +2,31 @@ package com.tarrega.clashroyale;
 
 import com.tarrega.clashroyale.domain.*;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by vayne on 2016. 10. 2..
  */
 public class Constants {
-	public static Set<Card> cards = new HashSet<>();
+	public static final Set<Card> cards = new HashSet<>();
+	// 2016.09
+	public static final List<String> topRankerCards = Arrays.asList("elixir collector", "zap", "poison", "mini P.E.K.K.A", "Guards", "musketeer", "giant",
+		"ice spirit", "princess", "hog rider", "minions", "arrows", "minion horde", "ice wizard", "miner", "prince", "barbarians", "freeze", "Bowler",
+		"Skeletons");
 
+
+	// 참고할만한 사이트들
+	// https://namu.wiki/w/%ED%81%B4%EB%9E%98%EC%8B%9C%20%EB%A1%9C%EC%96%84/%EC%B9%B4%EB%93%9C
+	// http://m.inven.co.kr/clashroyale/card/
+	// http://cr.gamekiji.com/ko/unit/unitList.jsp#cs=&rarity=&type=&tg=&spd=&at=&txt=&orType=TAS&or=1&view=1&compareCard01=&compareCard02=
 	static {
 		/* Troop Cards */
 		// COMMON
+		cards.add(Card.builder().name("Skeletons").nameKr("해골 병사").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.LOW)
+			.cost(1).build());
 		cards.add(Card.builder().name("knight").nameKr("기사").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(3).build());
 		cards.add(Card.builder().name("goblins").nameKr("고블린").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
@@ -96,11 +109,11 @@ public class Constants {
 			.cost(3).type(CardType.SPELL).build());
 		cards.add(Card.builder().name("fireball").nameKr("파이어 볼").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).areaDamage(true)
 			.cost(4).type(CardType.SPELL).build());
-		cards.add(Card.builder().name("rocket").nameKr("로켓").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).areaDamage(true)
+		cards.add(Card.builder().name("rocket").nameKr("로켓").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.HIGH).areaDamage(true)
 			.cost(6).type(CardType.SPELL).build());
 		cards.add(Card.builder().name("poison").nameKr("독 마법").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).areaDamage(true)
 			.cost(4).type(CardType.SPELL).build());
-		cards.add(Card.builder().name("lightning").nameKr("번개 마법").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("lightning").nameKr("번개 마법").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(6).type(CardType.SPELL).build());
 		cards.add(Card.builder().name("goblin barrel").nameKr("고블린 통").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(3).type(CardType.SPELL).build());
@@ -108,7 +121,7 @@ public class Constants {
 			.cost(2).type(CardType.SPELL).build());
 		cards.add(Card.builder().name("freeze").nameKr("얼음 마법").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM)
 			.cost(4).type(CardType.SPELL).build());
-		cards.add(Card.builder().name("mirror").nameKr("반사경").rarity(Rarity.EPIC).target(Target.NONE).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("mirror").nameKr("반사경").rarity(Rarity.EPIC).target(Target.NONE).attackGrade(AttackGrade.HIGH)
 			.cost(4).type(CardType.SPELL).build());
 		cards.add(Card.builder().name("the log").nameKr("통나무").rarity(Rarity.LEGENDARY).target(Target.GROUND).attackGrade(AttackGrade.LOW).areaDamage(true)
 			.cost(2).type(CardType.SPELL).build());
@@ -121,7 +134,7 @@ public class Constants {
 		cards.add(Card.builder().name("Mortar").nameKr("박격포").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(4).type(CardType.BUILDING).build());
 
-		cards.add(Card.builder().name("elixir collector").nameKr("정제소").rarity(Rarity.RARE).target(Target.NONE).attackGrade(AttackGrade.ZERO)
+		cards.add(Card.builder().name("elixir collector").nameKr("엘릭서 정제소").rarity(Rarity.RARE).target(Target.NONE).attackGrade(AttackGrade.ZERO)
 			.cost(5).type(CardType.BUILDING).build());
 		cards.add(Card.builder().name("goblin hut").nameKr("고블린 오두막").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).partnerCard("barbarian hut")
 			.cost(5).type(CardType.BUILDING).build());

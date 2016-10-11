@@ -37,6 +37,7 @@ public class DeckGeneratorTest {
 		Deck deck = deckGenerator.generate(RandomType.DEFENSE);
 		log.debug("deck : {}", deck);
 		Assert.assertNotNull(deck);
+		Assert.assertTrue(deck.getCards().stream().allMatch(card -> card.getAttackGrade() != AttackGrade.HIGH));
 	}
 
 	@Test
