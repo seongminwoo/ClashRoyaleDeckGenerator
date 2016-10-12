@@ -22,3 +22,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### npm ###
+src/main/webapp/build/
+src/main/webapp/node_modules/
