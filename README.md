@@ -2,6 +2,7 @@
 
 ## build
 ### UI build
+you should build UI first.
 ```sh  
 cd src/main/webapp
 npm install
