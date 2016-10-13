@@ -1,8 +1,23 @@
 # ClashRoyaleDeckGenerator
 
-## UI build
+## build
+### UI build
+```sh  
 cd src/main/webapp
 npm install
 npm run build
+```
 
-after above build, build directory files will be served when you run spring boot server.
+## run
+```sh
+run java file DecksimulatorApplication.java on your IDE
+```
+or
+```sh
+## spring boot build
+./gradlew clean build
+## run
+java -jar ./build/libs/decksimulator-0.0.1-SNAPSHOT.jar
+```
+
+http://localhost:8090
