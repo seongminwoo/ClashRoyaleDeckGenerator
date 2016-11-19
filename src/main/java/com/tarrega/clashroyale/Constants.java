@@ -12,10 +12,13 @@ import java.util.Set;
  */
 public class Constants {
 	public static final Set<Card> cards = new HashSet<>();
-	// 2016.09
-	public static final List<String> topRankerCards = Arrays.asList("elixir collector", "zap", "poison", "mini P.E.K.K.A", "Guards", "musketeer", "giant",
-		"ice spirit", "princess", "hog rider", "minions", "arrows", "minion horde", "ice wizard", "miner", "prince", "barbarians", "freeze", "Bowler",
-		"Skeletons");
+	// 2016.10
+	// top 25 cards
+	public static final List<String> topRankerCards = Arrays.asList(
+		"elixir collector", "poison", "ice spirit", "zap", "Guards", "mega minion", "hog rider", "giant", "miner", "inferno tower",
+		"prince", "Skeletons", "princess", "minion horde", "mini P.E.K.K.A", "barbarians", "three musketeers", "freeze", "musketeer", "knight",
+		"cannon", "minions", "goblin barrel", "goblins", "ice wizard"
+	);
 
 
 	// 참고할만한 사이트들
@@ -33,7 +36,7 @@ public class Constants {
 			.cost(2).build());
 		cards.add(Card.builder().name("royal giant").nameKr("로얄 자이언트").rarity(Rarity.COMMON).target(Target.BUILDINGS).attackGrade(AttackGrade.HIGH).range(true)
 			.cost(6).build());
-		cards.add(Card.builder().name("barbarians").nameKr("바바리안").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
+		cards.add(Card.builder().name("barbarians").nameKr("바바리안").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
 			.cost(5).build());
 		cards.add(Card.builder().name("minions").nameKr("미니언").rarity(Rarity.COMMON).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
 			.cost(3).build());
@@ -62,15 +65,18 @@ public class Constants {
 			.cost(5).build());
 		cards.add(Card.builder().name("three musketeers").nameKr("삼총사").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.HIGH).range(true)
 			.cost(9).build());
+		cards.add(Card.builder().name("mega minion").nameKr("메가 미니언").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
+			.cost(3).build());
 
 		// EPIC
 		cards.add(Card.builder().name("prince").nameKr("프린스").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(5).build());
-		cards.add(Card.builder().name("Baby Dragon").nameKr("베이비 드래곤").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("Baby Dragon").nameKr("베이비 드래곤").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(
+			AttackGrade.MEDIUM).range(true)
 			.cost(4).build());
 		cards.add(Card.builder().name("Skeleton Army").nameKr("해골 군대").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(4).build());
-		cards.add(Card.builder().name("Witch").nameKr("마녀").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("Witch").nameKr("마녀").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
 			.cost(5).build());
 		cards.add(Card.builder().name("Giant Skeleton").nameKr("자이언트 해골").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(6).build());
@@ -84,7 +90,7 @@ public class Constants {
 			.cost(4).build());
 		cards.add(Card.builder().name("Guards").nameKr("가드").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(3).build());
-		cards.add(Card.builder().name("Bowler").nameKr("볼러").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("Bowler").nameKr("볼러").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
 			.cost(5).build());
 
 		// LEGENDARY

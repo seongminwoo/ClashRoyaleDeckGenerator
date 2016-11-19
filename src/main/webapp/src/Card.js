@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import 'whatwg-fetch'
 
-const CARD_API_URL = 'http://localhost:8080/cards';
+const CARD_API_URL = 'http://localhost:8090/cards';
 
 class CardsContainer extends Component {
 	constructor() {

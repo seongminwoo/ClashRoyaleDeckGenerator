@@ -56,7 +56,7 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public Card getCard(String cardName) {
-		return getAllCards().stream().filter(card -> card.getName().equals(cardName)).findFirst().get();
+		return getAllCards().stream().filter(card -> card.getName().equalsIgnoreCase(cardName)).findAny().get();
 	}
 
 	@Override
