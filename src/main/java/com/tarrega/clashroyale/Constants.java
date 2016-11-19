@@ -12,12 +12,12 @@ import java.util.Set;
  */
 public class Constants {
 	public static final Set<Card> cards = new HashSet<>();
-	// 2016.10
+	// 2016.11
 	// top 25 cards
 	public static final List<String> topRankerCards = Arrays.asList(
-		"elixir collector", "poison", "ice spirit", "zap", "Guards", "mega minion", "hog rider", "giant", "miner", "inferno tower",
-		"prince", "Skeletons", "princess", "minion horde", "mini P.E.K.K.A", "barbarians", "three musketeers", "freeze", "musketeer", "knight",
-		"cannon", "minions", "goblin barrel", "goblins", "ice wizard"
+		"the log", "mega minion", "zap", "archers", "lightning", "ice spirit", "giant", "miner", "Skeleton Army", "inferno tower",
+		"prince", "hog rider", "princess", "minion horde", "mini P.E.K.K.A", "Golem", "arrows", "fireball", "musketeer", "knight",
+		"tombstone", "minions", "goblin barrel", "furnace", "Bowler"
 	);
 
 
@@ -48,6 +48,8 @@ public class Constants {
 			.cost(2).build());
 		cards.add(Card.builder().name("ice spirit").nameKr("얼음 정령").rarity(Rarity.COMMON).target(Target.AIR_GROUND).attackGrade(AttackGrade.LOW).areaDamage(true).range(true)
 			.cost(1).build());
+		cards.add(Card.builder().name("archers").nameKr("아처").rarity(Rarity.COMMON).target(Target.AIR_GROUND).attackGrade(AttackGrade.LOW).range(true)
+			.cost(3).build());
 
 
 		// RARE
