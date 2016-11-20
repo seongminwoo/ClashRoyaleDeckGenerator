@@ -15,9 +15,9 @@ public class Constants {
 	// 2016.11
 	// top 25 cards
 	public static final List<String> topRankerCards = Arrays.asList(
-		"the log", "mega minion", "zap", "archers", "lightning", "ice spirit", "giant", "miner", "Skeleton Army", "inferno tower",
-		"prince", "hog rider", "princess", "minion horde", "mini P.E.K.K.A", "Golem", "arrows", "fireball", "musketeer", "knight",
-		"tombstone", "minions", "goblin barrel", "furnace", "Bowler"
+		"the log", "mega minion", "zap", "archers", "lightning", "ice spirit", "furnace", "tombstone", "Skeleton Army", "inferno tower",
+		"miner", "hog rider", "princess", "minion horde", "mini P.E.K.K.A", "Golem", "arrows", "fireball", "musketeer", "ice golem",
+		"minions", "goblin barrel", "giant", "Bowler", "royal giant"
 	);
 
 
@@ -69,6 +69,8 @@ public class Constants {
 			.cost(9).build());
 		cards.add(Card.builder().name("mega minion").nameKr("메가 미니언").rarity(Rarity.RARE).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
 			.cost(3).build());
+		cards.add(Card.builder().name("ice golem").nameKr("얼음 골렘").rarity(Rarity.RARE).target(Target.BUILDINGS).attackGrade(AttackGrade.LOW).areaDamage(true)
+			.cost(2).build());
 
 		// EPIC
 		cards.add(Card.builder().name("prince").nameKr("프린스").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
