@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import 'whatwg-fetch'
 import update from 'react-addons-update'
+import querystring from 'querystring';
 
 const DECK_API_URL = 'http://localhost:8090/decks';
 const RANDOM_TYPE_LIST_URL = 'http://localhost:8090/randomTypes';
+const ALL_CARDS_LIST_URL = 'http://localhost:8090/cards/name';
 
 class DeckContainer extends Component {
 	constructor() {
@@ -12,12 +14,26 @@ class DeckContainer extends Component {
 			cards: [],
 			randomType: "",
 			costAverage: 0,
-			randomTypes: []
+			randomTypes: [],
+			allCards: [],
+			filterSelected: "none",
+			filterSelectedCards: []
 		};
 	}
 
 	reload(randomType) {
-		fetch(DECK_API_URL + "?type=" + randomType)
+		let url = DECK_API_URL + "?type=" + randomType;
+		if(this.state.filterSelectedCards.length > 0) {
+			let data = {
+				cards : this.state.filterSelectedCards
+			}
+
+			url = url + "&" + querystring.stringify(data);
+		}
+
+		console.log("url : " + url);
+
+		fetch(url)
 			.then((response) => response.json())
 			.then((responseData) => {
 				console.log(responseData);
@@ -33,6 +49,12 @@ class DeckContainer extends Component {
 		this.reload(randomType)
 	}
 
+	handleCardFilterAdd(card) {
+		console.log("handleCardFilterAdd : " + card);
+		let newState = update(this.state, {filterSelectedCards: {$push: [card]}, filterSelected: {$set: card}})
+		this.setState(newState);
+	}
+
 	loadRandomTypes() {
 		fetch(RANDOM_TYPE_LIST_URL)
 			.then((response) => response.json())
@@ -46,8 +68,22 @@ class DeckContainer extends Component {
 			})
 	}
 
+	loadAllCardNames() {
+		fetch(ALL_CARDS_LIST_URL)
+			.then((response) => response.json())
+			.then((responseData) => {
+				console.log(responseData);
+				let newState = update(this.state, {allCards: {$set: responseData}})
+				this.setState(newState);
+			})
+			.catch((error) => {
+				console.log('Error fetching and parsing data', error);
+			})
+	}
+
 	componentDidMount() {
 		this.loadRandomTypes();
+		this.loadAllCardNames();
 		this.reload("BALANCED");
 	}
 
@@ -55,13 +91,42 @@ class DeckContainer extends Component {
 		return (
 			<div>
 				<RandomTypeSelect onRandomTypeChange={this.handleRandomTypeChange.bind(this)} randomTypes={this.state.randomTypes} randomType={this.state.randomType} />
+				<CardsFilterSelect onCardChange={this.handleCardFilterAdd.bind(this)} allCards={this.state.allCards} filterSelected={this.state.filterSelected} />
 				<button onClick={this.reload.bind(this, this.state.randomType)}>Generate</button>
 				<br/>
 				<br/>
-				<Deck cards={this.state.cards} costAverage={this.state.costAverage} />
+				<Deck cards={this.state.cards} costAverage={this.state.costAverage} filterSelectedCards={this.state.filterSelectedCards}/>
 			</div>
 		);
 	}
+}
+
+class CardsFilterSelect extends Component {
+	handleChange(event) {
+		this.props.onCardChange(event.target.value)
+	}
+
+	render() {
+		var allCardsOption = this.props.allCards.map((v) => (
+			<option value={v} key={v}>{v}</option>
+		));
+
+		allCardsOption.unshift(<option value="none" key="none">-preservedCards-</option>);
+
+		var cardsFilterSelect = <select value={this.props.filterSelected} onChange={this.handleChange.bind(this)}> + {allCardsOption} + </select>
+
+		return(
+			<span>
+				{cardsFilterSelect}
+			</span>
+		)
+	}
+}
+
+CardsFilterSelect.propTypes = {
+	onCardChange: PropTypes.func.isRequired,
+	allCards: PropTypes.arrayOf(PropTypes.string),
+	filterSelected: PropTypes.string.isRequired
 }
 
 class RandomTypeSelect extends Component {
@@ -96,6 +161,7 @@ class Deck extends Component {
 			<div>
 				<CardList cards={this.props.cards}/>
 				<p>Average Elixir Cost: {this.props.costAverage}</p>
+				<p>preservedCards : {this.props.filterSelectedCards.join()}</p>
 			</div>
 		)
 	}
@@ -103,6 +169,7 @@ class Deck extends Component {
 Deck.propTypes = {
 	cards: PropTypes.arrayOf(PropTypes.object),
 	costAverage: PropTypes.number.isRequired,
+	filterSelectedCards: PropTypes.arrayOf(PropTypes.string)
 }
 
 

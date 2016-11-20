@@ -28,6 +28,11 @@ public class CardController {
 		return cardService.getAllCards();
 	}
 
+	@RequestMapping("/name")
+	public List<String> allCardNames() {
+		return cardService.getAllCards().stream().map(card -> card.getName()).sorted().collect(Collectors.toList());
+	}
+
 	@RequestMapping("/type")
 	public Map<CardType, List<Card>> allCardsByType() {
 		return cardService.getAllCards().stream().collect(Collectors.groupingBy(Card::getType));

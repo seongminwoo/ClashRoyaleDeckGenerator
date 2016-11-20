@@ -28,7 +28,7 @@ public class Constants {
 	static {
 		/* Troop Cards */
 		// COMMON
-		cards.add(Card.builder().name("Skeletons").nameKr("해골 병사").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.LOW)
+		cards.add(Card.builder().name("skeletons").nameKr("해골 병사").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(1).build());
 		cards.add(Card.builder().name("knight").nameKr("기사").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(3).build());
@@ -75,26 +75,26 @@ public class Constants {
 		// EPIC
 		cards.add(Card.builder().name("prince").nameKr("프린스").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(5).build());
-		cards.add(Card.builder().name("Baby Dragon").nameKr("베이비 드래곤").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(
+		cards.add(Card.builder().name("baby dragon").nameKr("베이비 드래곤").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(
 			AttackGrade.MEDIUM).range(true)
 			.cost(4).build());
-		cards.add(Card.builder().name("Skeleton Army").nameKr("해골 군대").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.LOW)
+		cards.add(Card.builder().name("skeleton army").nameKr("해골 군대").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(4).build());
-		cards.add(Card.builder().name("Witch").nameKr("마녀").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
+		cards.add(Card.builder().name("witch").nameKr("마녀").rarity(Rarity.EPIC).target(Target.AIR_GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
 			.cost(5).build());
-		cards.add(Card.builder().name("Giant Skeleton").nameKr("자이언트 해골").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
+		cards.add(Card.builder().name("giant skeleton").nameKr("자이언트 해골").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(6).build());
-		cards.add(Card.builder().name("Balloon").nameKr("해골 비행선").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH).partnerCard("giant")
+		cards.add(Card.builder().name("balloon").nameKr("해골 비행선").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH).partnerCard("giant")
 			.cost(5).build());
 		cards.add(Card.builder().name("P.E.K.K.A").nameKr("P.E.K.K.A").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(7).build());
-		cards.add(Card.builder().name("Golem").nameKr("골렘").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
+		cards.add(Card.builder().name("golem").nameKr("골렘").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(8).build());
-		cards.add(Card.builder().name("Dark Prince").nameKr("다크 프린스").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
+		cards.add(Card.builder().name("dark prince").nameKr("다크 프린스").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM)
 			.cost(4).build());
-		cards.add(Card.builder().name("Guards").nameKr("가드").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.LOW)
+		cards.add(Card.builder().name("guards").nameKr("가드").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.LOW)
 			.cost(3).build());
-		cards.add(Card.builder().name("Bowler").nameKr("볼러").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
+		cards.add(Card.builder().name("bowler").nameKr("볼러").rarity(Rarity.EPIC).target(Target.GROUND).attackGrade(AttackGrade.MEDIUM).range(true)
 			.cost(5).build());
 
 		// LEGENDARY
@@ -141,7 +141,7 @@ public class Constants {
 			.cost(3).type(CardType.BUILDING).build());
 		cards.add(Card.builder().name("tesla").nameKr("뇌전탑").rarity(Rarity.COMMON).target(Target.AIR_GROUND).attackGrade(AttackGrade.LOW)
 			.cost(4).type(CardType.BUILDING).build());
-		cards.add(Card.builder().name("Mortar").nameKr("박격포").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
+		cards.add(Card.builder().name("mortar").nameKr("박격포").rarity(Rarity.COMMON).target(Target.GROUND).attackGrade(AttackGrade.HIGH)
 			.cost(4).type(CardType.BUILDING).build());
 
 		cards.add(Card.builder().name("elixir collector").nameKr("엘릭서 정제소").rarity(Rarity.RARE).target(Target.NONE).attackGrade(AttackGrade.ZERO)
