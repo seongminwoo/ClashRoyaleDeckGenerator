@@ -14,9 +14,10 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
+
 jar {
 	baseName = 'decksimulator'
-	version = '0.0.1-SNAPSHOT'
+	version = '0.0.2-SNAPSHOT'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -34,3 +35,9 @@ dependencies {
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+task npmRunBuild (type : Exec) {
+	executable "${project.projectDir}/npmBuild.sh"
+}
+
+build.dependsOn npmRunBuild
