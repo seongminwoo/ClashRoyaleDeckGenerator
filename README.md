@@ -1,4 +1,6 @@
 # ClashRoyaleDeckGenerator
+## UI snapshot
+![UI snapshot](https://cloud.githubusercontent.com/assets/1201462/24835632/dba60d92-1d41-11e7-8791-980e9e2698b1.png)
 
 ## build
 ### UI build
